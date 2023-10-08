@@ -89,3 +89,5 @@ Moviepy - Writing video 2023-10-07_20-16-08_video_grid_montage.mp4
 Moviepy - Done !
 Moviepy - video ready 2023-10-07_20-16-08_video_grid_montage.mp4
 ```
+
+![example_video_montage](https://github.com/tylerlum/video_montage/assets/26510814/7cd94a59-efe1-4b2b-bfc8-0aa6254d8bd7)
