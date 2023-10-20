@@ -31,3 +31,29 @@ def create_video_clips(
         for video_file_path in selected_video_file_paths
     ]
     return video_clips
+
+
+def overlay_text_on_clip(
+    clip: mp.VideoFileClip,
+    text: str,
+    vertical_position: str = "top",
+    horizontal_position: str = "center",
+    color: str = "white",
+    stroke_color: str = "black",
+    stroke_width: int = 1,
+    fontsize: int = 24,
+    width_buffer: int = 20,
+) -> mp.VideoFileClip:
+    text_clip = (
+        mp.TextClip(
+            text,
+            color=color,
+            stroke_color=stroke_color,
+            stroke_width=stroke_width,
+            fontsize=fontsize,
+        )
+        .set_position((horizontal_position, vertical_position))
+        .set_duration(clip.duration)
+        .resize(width=clip.w - width_buffer)
+    )
+    return mp.CompositeVideoClip([clip, text_clip])

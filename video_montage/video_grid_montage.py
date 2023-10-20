@@ -3,7 +3,7 @@ from typing import Optional, List
 import moviepy.editor as mp
 import pathlib
 import math
-from video_montage.utils import create_video_clips, datetime_str
+from video_montage.utils import create_video_clips, datetime_str, overlay_text_on_clip
 
 
 class ArgumentParser(Tap):
@@ -14,6 +14,7 @@ class ArgumentParser(Tap):
     max_duration_seconds: Optional[int] = None
     fps: Optional[int] = None
     num_per_row: Optional[int] = None
+    overlay_filename: bool = False
 
 
 def trim_video_clips(
@@ -48,6 +49,14 @@ def main() -> None:
         video_clips, max_duration_seconds=args.max_duration_seconds
     )
     num_videos = len(video_clips)
+
+    if args.overlay_filename:
+        video_clips = [
+            overlay_text_on_clip(
+                clip=video_clip, text=pathlib.Path(video_clip.filename).name
+            )
+            for video_clip in video_clips
+        ]
 
     DEFAULT_NUM_PER_ROW = math.ceil(math.sqrt(num_videos))
     num_per_row = (
