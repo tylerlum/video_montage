@@ -24,11 +24,16 @@ Before running, you must have a prepare an input video folder with videos the fo
 `video_grid_montage`: Create a grid of videos (all playing at the same time)
 
 ```
+
 video_grid_montage --help
 
-usage: video_grid_montage --input_video_folder_path INPUT_VIDEO_FOLDER_PATH [--output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH]
-                          [--output_video_filename OUTPUT_VIDEO_FILENAME] [--max_n_videos MAX_N_VIDEOS]
-                          [--max_duration_seconds MAX_DURATION_SECONDS] [--fps FPS] [--num_per_row NUM_PER_ROW] [-h]
+usage: video_grid_montage --input_video_folder_path INPUT_VIDEO_FOLDER_PATH
+                          [--output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH]
+                          [--output_video_filename OUTPUT_VIDEO_FILENAME]
+                          [--max_n_videos MAX_N_VIDEOS]
+                          [--max_duration_seconds MAX_DURATION_SECONDS]
+                          [--fps FPS] [--num_per_row NUM_PER_ROW]
+                          [--overlay_filename] [-h]
 
 optional arguments:
   --input_video_folder_path INPUT_VIDEO_FOLDER_PATH
@@ -36,7 +41,7 @@ optional arguments:
   --output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH
                         (Path, default=.)
   --output_video_filename OUTPUT_VIDEO_FILENAME
-                        (str, default=2023-10-07_18-58-19_video_grid_montage.mp4)
+                        (str, default=2023-10-20_00-16-32_video_grid_montage.mp4)
   --max_n_videos MAX_N_VIDEOS
                         (Union[int, NoneType], default=None)
   --max_duration_seconds MAX_DURATION_SECONDS
@@ -44,6 +49,7 @@ optional arguments:
   --fps FPS             (Union[int, NoneType], default=None)
   --num_per_row NUM_PER_ROW
                         (Union[int, NoneType], default=None)
+  --overlay_filename    (bool, default=False)
   -h, --help            show this help message and exit
 ```
 
@@ -52,8 +58,11 @@ optional arguments:
 ```
 video_sequence_montage --help
 
-usage: video_sequence_montage --input_video_folder_path INPUT_VIDEO_FOLDER_PATH [--output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH]
-                              [--output_video_filename OUTPUT_VIDEO_FILENAME] [--max_n_videos MAX_N_VIDEOS] [--fps FPS] [-h]
+usage: video_sequence_montage --input_video_folder_path INPUT_VIDEO_FOLDER_PATH
+                              [--output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH]
+                              [--output_video_filename OUTPUT_VIDEO_FILENAME]
+                              [--max_n_videos MAX_N_VIDEOS] [--fps FPS]
+                              [--overlay_filename] [-h]
 
 optional arguments:
   --input_video_folder_path INPUT_VIDEO_FOLDER_PATH
@@ -61,10 +70,11 @@ optional arguments:
   --output_video_folder_path OUTPUT_VIDEO_FOLDER_PATH
                         (Path, default=.)
   --output_video_filename OUTPUT_VIDEO_FILENAME
-                        (str, default=2023-10-07_18-58-59_video_sequence_montage.mp4)
+                        (str, default=2023-10-20_00-17-06_video_sequence_montage.mp4)
   --max_n_videos MAX_N_VIDEOS
                         (Union[int, NoneType], default=None)
   --fps FPS             (Union[int, NoneType], default=None)
+  --overlay_filename    (bool, default=False)
   -h, --help            show this help message and exit
 ```
 
@@ -91,3 +101,5 @@ Moviepy - video ready 2023-10-07_20-16-08_video_grid_montage.mp4
 ```
 
 ![example_video_montage](https://github.com/tylerlum/video_montage/assets/26510814/7cd94a59-efe1-4b2b-bfc8-0aa6254d8bd7)
+
+You can also add the `--overlay_filename` argument to add the clip's filename to each video clip.
