@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 DESCRIPTION = "Easily create a video montage (either a sequence or a grid of videos)"
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()

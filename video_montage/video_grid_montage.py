@@ -47,12 +47,27 @@ def main() -> None:
     video_clips = trim_video_clips(
         video_clips, max_duration_seconds=args.max_duration_seconds
     )
+    num_videos = len(video_clips)
 
-    DEFAULT_NUM_PER_ROW = math.ceil(math.sqrt(len(video_clips)))
+    DEFAULT_NUM_PER_ROW = math.ceil(math.sqrt(num_videos))
     num_per_row = (
         args.num_per_row if args.num_per_row is not None else DEFAULT_NUM_PER_ROW
     )
-    num_rows = math.ceil(len(video_clips) / num_per_row)
+    num_rows = math.ceil(num_videos / num_per_row)
+
+    num_slots = num_per_row * num_rows
+    num_empty_slots = num_slots - num_videos
+    BLACK = (0, 0, 0)
+    video_clips += [
+        mp.ColorClip(
+            size=video_clips[0].size,
+            color=BLACK,
+            duration=video_clips[0].duration,
+        )
+        for _ in range(num_empty_slots)
+    ]
+    assert len(video_clips) == num_slots, f"{len(video_clips)} != {num_slots}"
+
     video_grid = mp.clips_array(
         [video_clips[i * num_per_row : (i + 1) * num_per_row] for i in range(num_rows)]
     )
