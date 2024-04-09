@@ -8,10 +8,18 @@ from video_montage.utils import create_video_clips, datetime_str, overlay_text_o
 class ArgumentParser(Tap):
     input_video_folder_path: pathlib.Path
     output_video_folder_path: pathlib.Path = pathlib.Path(".")
-    output_video_filename: str = f"{datetime_str()}_video_sequence_montage.mp4"
+    output_video_filename: Optional[str] = None
     max_n_videos: Optional[int] = None
     fps: Optional[int] = None
     overlay_filename: bool = False
+
+    @property
+    def output_video_filepath(self) -> pathlib.Path:
+        if self.output_video_filename is None:
+            filename = f"{self.input_video_folder_path.name}_{datetime_str()}_video_sequence_montage.mp4"
+        else:
+            filename = self.output_video_filename
+        return self.output_video_folder_path / filename
 
 
 def main() -> None:
@@ -38,10 +46,9 @@ def main() -> None:
 
     video_sequence = mp.concatenate_videoclips(video_clips, method="compose")
 
-    output_filepath = args.output_video_folder_path / args.output_video_filename
     fps = args.fps if args.fps is not None else video_clips[0].fps
     video_sequence.write_videofile(
-        str(output_filepath),
+        str(args.output_video_filepath),
         fps=fps,
     )
 
