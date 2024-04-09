@@ -17,7 +17,10 @@ def create_video_clips(
 
     video_file_paths = sum(
         [
-            list(input_video_folders_path.glob(video_extension))
+            sorted(
+                list(input_video_folders_path.glob(video_extension)),
+                key=lambda x: x.name,
+            )
             for video_extension in VIDEO_EXTENSIONS
         ],
         [],
