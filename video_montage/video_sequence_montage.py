@@ -1,7 +1,9 @@
-from tap import Tap
-from typing import Optional
-import moviepy.editor as mp
 import pathlib
+from typing import Optional
+
+import moviepy.editor as mp
+from tap import Tap
+
 from video_montage.utils import create_video_clips, datetime_str, overlay_text_on_clip
 
 
@@ -24,9 +26,9 @@ class ArgumentParser(Tap):
 
 def main() -> None:
     args: ArgumentParser = ArgumentParser().parse_args()
-    assert (
-        args.input_video_folder_path.exists()
-    ), f"Input video folder path {args.input_video_folder_path} does not exist."
+    assert args.input_video_folder_path.exists(), (
+        f"Input video folder path {args.input_video_folder_path} does not exist."
+    )
 
     if not args.output_video_folder_path.exists():
         print(f"Creating output folder {args.output_video_folder_path}")

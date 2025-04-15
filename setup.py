@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from pathlib import Path
+
+from setuptools import find_packages, setup
 
 VERSION = "0.1.0"
 DESCRIPTION = "Easily create a video montage (either a sequence or a grid of videos)"

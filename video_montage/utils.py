@@ -1,8 +1,9 @@
-import moviepy.editor as mp
 import pathlib
-from typing import List, Optional
 from datetime import datetime
 from functools import lru_cache
+from typing import List, Optional
+
+import moviepy.editor as mp
 
 
 @lru_cache()
