@@ -55,7 +55,9 @@ def overlay_text_on_clip(
             color=color,
             bg_color=bg_color,
             fontsize=LARGE_FONT_SIZE_FOR_BETTER_RESOLUTION,
-            font=str(pathlib.Path(__file__).parent / "assets/fonts/DejaVuSans-Bold.ttf"),
+            font=str(
+                pathlib.Path(__file__).parent / "assets/fonts/DejaVuSans-Bold.ttf"
+            ),
         )
         .set_position((horizontal_position, vertical_position))
         .set_duration(clip.duration)

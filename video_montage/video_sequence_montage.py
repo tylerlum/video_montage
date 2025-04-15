@@ -1,4 +1,5 @@
 import pathlib
+from multiprocessing import cpu_count
 from typing import Optional
 
 import moviepy.editor as mp
@@ -14,6 +15,7 @@ class ArgumentParser(Tap):
     max_n_videos: Optional[int] = None
     fps: Optional[int] = None
     overlay_filename: bool = False
+    threads: int = cpu_count()
 
     @property
     def output_video_filepath(self) -> pathlib.Path:
@@ -52,6 +54,10 @@ def main() -> None:
     video_sequence.write_videofile(
         str(args.output_video_filepath),
         fps=fps,
+        audio=False,
+        logger="bar",
+        verbose=False,
+        threads=args.threads,
     )
 
 

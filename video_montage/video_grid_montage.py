@@ -1,5 +1,6 @@
 import math
 import pathlib
+from multiprocessing import cpu_count
 from typing import Literal, Optional
 
 import moviepy.editor as mp
@@ -18,6 +19,7 @@ class ArgumentParser(Tap):
     num_per_row: Optional[int] = None
     overlay_filename: bool = False
     fill_mode: Literal["freeze", "loop", "black"] = "freeze"
+    threads: int = cpu_count()
 
     @property
     def output_video_filepath(self) -> pathlib.Path:
@@ -92,9 +94,7 @@ def main() -> None:
     video_clips = create_video_clips(
         args.input_video_folder_path, max_n_videos=args.max_n_videos
     )
-    filenames = [
-        pathlib.Path(video_clip.filename).name for video_clip in video_clips
-    ]
+    filenames = [pathlib.Path(video_clip.filename).name for video_clip in video_clips]
 
     # Determine the target montage duration:
     # If user provided a duration, use it; otherwise, use the longest clip's duration.
@@ -117,9 +117,7 @@ def main() -> None:
 
     if args.overlay_filename:
         video_clips = [
-            overlay_text_on_clip(
-                clip=video_clip, text=filename
-            )
+            overlay_text_on_clip(clip=video_clip, text=filename)
             for video_clip, filename in zip(video_clips, filenames)
         ]
 
@@ -153,6 +151,10 @@ def main() -> None:
     video_grid.write_videofile(
         str(args.output_video_filepath),
         fps=fps,
+        audio=False,
+        logger="bar",
+        verbose=False,
+        threads=args.threads,
     )
 
 
