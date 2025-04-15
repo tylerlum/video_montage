@@ -2,7 +2,7 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 DESCRIPTION = "Easily create a video montage (either a sequence or a grid of videos)"
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    install_requires=["moviepy", "typed-argument-parser"],
+    install_requires=["moviepy<2", "typed-argument-parser", "pillow<10"],
     keywords=["python", "video", "montage", "grid", "sequence"],
     entry_points={
         "console_scripts": [

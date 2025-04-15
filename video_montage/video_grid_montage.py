@@ -29,8 +29,8 @@ class ArgumentParser(Tap):
 
 
 def adjust_video_clip_duration(
-    video_clip: mp.VideoFileClip, target_duration: float, fill_mode: str
-) -> mp.VideoFileClip:
+    video_clip: mp.VideoClip, target_duration: float, fill_mode: str
+) -> mp.VideoClip:
     """
     Adjusts a single video clip to have the specified target_duration.
 
@@ -92,6 +92,9 @@ def main() -> None:
     video_clips = create_video_clips(
         args.input_video_folder_path, max_n_videos=args.max_n_videos
     )
+    filenames = [
+        pathlib.Path(video_clip.filename).name for video_clip in video_clips
+    ]
 
     # Determine the target montage duration:
     # If user provided a duration, use it; otherwise, use the longest clip's duration.
@@ -115,9 +118,9 @@ def main() -> None:
     if args.overlay_filename:
         video_clips = [
             overlay_text_on_clip(
-                clip=video_clip, text=pathlib.Path(video_clip.filename).name
+                clip=video_clip, text=filename
             )
-            for video_clip in video_clips
+            for video_clip, filename in zip(video_clips, filenames)
         ]
 
     # Determine grid layout for the montage.

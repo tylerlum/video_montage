@@ -38,21 +38,24 @@ def create_video_clips(
 
 
 def overlay_text_on_clip(
-    clip: mp.VideoFileClip,
+    clip: mp.VideoClip,
     text: str,
     vertical_position: str = "top",
     horizontal_position: str = "center",
     color: str = "black",
     bg_color: str = "white",
     width_buffer: float = 0.9,
-) -> mp.VideoFileClip:
+) -> mp.VideoClip:
     LARGE_FONT_SIZE_FOR_BETTER_RESOLUTION = 100
+    font_path = pathlib.Path(__file__).parent / "assets/fonts/DejaVuSans-Bold.ttf"
+    assert font_path.exists(), f"Font file not found: {font_path}"
     text_clip = (
         mp.TextClip(
             text,
             color=color,
             bg_color=bg_color,
             fontsize=LARGE_FONT_SIZE_FOR_BETTER_RESOLUTION,
+            font=str(pathlib.Path(__file__).parent / "assets/fonts/DejaVuSans-Bold.ttf"),
         )
         .set_position((horizontal_position, vertical_position))
         .set_duration(clip.duration)
